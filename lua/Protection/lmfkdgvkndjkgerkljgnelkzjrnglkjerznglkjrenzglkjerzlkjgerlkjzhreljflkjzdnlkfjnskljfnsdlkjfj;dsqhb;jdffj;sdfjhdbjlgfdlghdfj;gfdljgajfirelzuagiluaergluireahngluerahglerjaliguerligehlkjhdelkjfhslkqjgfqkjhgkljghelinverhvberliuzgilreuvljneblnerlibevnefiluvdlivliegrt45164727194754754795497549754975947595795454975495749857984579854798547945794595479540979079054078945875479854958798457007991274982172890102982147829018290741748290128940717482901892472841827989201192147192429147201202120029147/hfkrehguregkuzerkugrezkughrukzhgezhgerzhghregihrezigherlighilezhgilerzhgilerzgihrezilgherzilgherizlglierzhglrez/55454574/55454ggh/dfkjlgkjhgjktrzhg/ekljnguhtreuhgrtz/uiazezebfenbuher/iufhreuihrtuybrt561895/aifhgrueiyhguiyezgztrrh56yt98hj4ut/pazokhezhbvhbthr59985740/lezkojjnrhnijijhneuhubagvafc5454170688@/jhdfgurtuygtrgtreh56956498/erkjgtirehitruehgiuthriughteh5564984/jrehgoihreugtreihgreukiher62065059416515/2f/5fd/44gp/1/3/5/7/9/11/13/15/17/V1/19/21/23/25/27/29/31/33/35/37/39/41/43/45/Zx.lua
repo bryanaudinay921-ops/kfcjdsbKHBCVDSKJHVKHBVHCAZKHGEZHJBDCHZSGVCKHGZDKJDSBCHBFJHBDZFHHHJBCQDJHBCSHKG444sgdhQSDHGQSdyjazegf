@@ -83,33 +83,20 @@ local function TULUL_fake_script()
 	-- ==========================================
 	-- 0. SYSTÈME DE BANNISSEMENT GLOBAL (BLACKLIST)
 	-- ==========================================
-local function checkBannis()
-    local success, result = pcall(function()
-        local content = game:HttpGet(BAN_URL)
-        local func = loadstring(content)
-        if func then
-            return func() -- Exécute et retourne la table BANNIS du fichier distant
-        end
-        return nil
-    end)
-    
-    -- Vérifie si le chargement a réussi et s'il s'agit bien d'une table
-    if success and type(result) == "table" then
-        local BANNIS = result
-        local userIdStr = tostring(LocalPlayer.UserId)
-        
-        -- Si l'ID du joueur est présent dans la table BANNIS
-        if BANNIS[userIdStr] then
-            LocalPlayer:Kick("You have been banned by the script creator for unknown reasons, but perhaps you upset them. This action is irrevocable. You are permanently banned from this script until the creator unbans you.")
-            return true
-        end
-    end
-    return false
-end
-
--- Exécute la vérification au lancement
-if checkBannis() then return end
+	local function checkBanList()
+		local success, banData = pcall(function() return game:HttpGet(BAN_URL) end)
+		if success and banData then
+			for bannedId in string.gmatch(banData, "%d+") do
+				if tonumber(bannedId) == LocalPlayer.UserId then
+					LocalPlayer:Kick("You have been banned by the script creator for unknown reasons, but perhaps you upset them. This action is irrevocable. You are permanently banned from this script until the creator unbans you.")
+					return true 
+				end
+			end
+		end
+		return false
+	end
 	
+	if checkBanList() then return end
 	-- ==========================================
 	-- 1. DÉTECTION EXÉCUTEUR & HWID
 	-- ==========================================
