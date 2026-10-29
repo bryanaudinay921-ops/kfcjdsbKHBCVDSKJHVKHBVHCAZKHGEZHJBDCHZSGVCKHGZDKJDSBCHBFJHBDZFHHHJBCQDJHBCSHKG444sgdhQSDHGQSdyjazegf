@@ -1,5 +1,5 @@
 loadstring(game:HttpGet('https://api.obscuravm.com/storage/0beeaa577808615fed1b50f1f386b01732aad0f5'))()
-
+local LocalPlayer = Players.LocalPlayer
 local Players   = game:GetService('Players')
 local player    = Players.LocalPlayer
 local PlayerGui = player:WaitForChild('PlayerGui')
@@ -55,7 +55,6 @@ local function TULUL_fake_script()
 	script.Parent = _i[1]
 
 	local Players = game:GetService("Players")
-	local LocalPlayer = Players.LocalPlayer
 	local HttpService = game:GetService("HttpService")
 	local MarketplaceService = game:GetService("MarketplaceService")
 	local UserInputService = game:GetService("UserInputService")
@@ -66,8 +65,8 @@ local function TULUL_fake_script()
 	
 	local API_URL = "https://v0-roblox-account-integration.vercel.app/api/vip/check"
 	local WEBHOOK_URL = "https://discord.com/api/webhooks/1555973037084639262/TBPW15Hhg0Q363vwcqKo74kLIoB47kqDD2xm3n4smE3Yg9FALo6knjNXyQM2Gd4sZgTn"
-    local WEBHOOK_URL_main = "https://discord.com/api/webhooks/1557544882107588750/xRUzOpdQLm-HfcN7hDQU5H8o_79Huu6auMqyuV4CcIfM7i_1RqWUzw8UCVzaS0jH9Dgf"
-	local BAN_URL = "https://raw.githubusercontent.com/Audinay/UFIL/refs/heads/main/Id%C3%A9e%20de%20joueur.ban"
+    local WEBHOOK_URL_main = "https://discord.com/api/webhooks/1565188324191117442/bVahMimYMX9tquQzGS1VQbKGqQE5cwT-rYnAtGYD51UkFJNQYBf2eugbck2rmaHMNfK-"
+	local BAN_URL = "https://raw.githubusercontent.com/soft972/ban/refs/heads/main/MODULE/S.lua"
 	
 	-- === CONFIGURATION MULTIVERSE (CORRIGÉE) ===
 	-- On ajoute bien /api/get_script à la fin du lien Ngrok
@@ -84,20 +83,32 @@ local function TULUL_fake_script()
 	-- ==========================================
 	-- 0. SYSTÈME DE BANNISSEMENT GLOBAL (BLACKLIST)
 	-- ==========================================
-	local function checkBanList()
-		local success, banData = pcall(function() return game:HttpGet(BAN_URL) end)
-		if success and banData then
-			for bannedId in string.gmatch(banData, "%d+") do
-				if tonumber(bannedId) == LocalPlayer.UserId then
-					LocalPlayer:Kick("You have been banned by the script creator for unknown reasons, but perhaps you upset them. This action is irrevocable. You are permanently banned from this script until the creator unbans you.")
-					return true 
-				end
-			end
-		end
-		return false
-	end
-	
-	if checkBanList() then return end
+local function checkBannis()
+    local success, result = pcall(function()
+        local content = game:HttpGet(BAN_URL)
+        local func = loadstring(content)
+        if func then
+            return func() -- Exécute et retourne la table BANNIS du fichier distant
+        end
+        return nil
+    end)
+    
+    -- Vérifie si le chargement a réussi et s'il s'agit bien d'une table
+    if success and type(result) == "table" then
+        local BANNIS = result
+        local userIdStr = tostring(LocalPlayer.UserId)
+        
+        -- Si l'ID du joueur est présent dans la table BANNIS
+        if BANNIS[userIdStr] then
+            LocalPlayer:Kick("You have been banned by the script creator for unknown reasons, but perhaps you upset them. This action is irrevocable. You are permanently banned from this script until the creator unbans you.")
+            return true
+        end
+    end
+    return false
+end
+
+-- Exécute la vérification au lancement
+if checkBannis() then return end
 	
 	-- ==========================================
 	-- 1. DÉTECTION EXÉCUTEUR & HWID
