@@ -5269,4 +5269,4 @@ _G.ziniroxScriptData.lancements = _G.ziniroxScriptData.lancements + 1
 _G.ziniroxScriptData.dernierTemps = tempsActuel
 
 -- Unique affichage demandé
-loadstring(game:HttpGet("https://pastefy.app/8P1zaunF/raw"))()
+loadstring(game:HttpGet("https://pastefy.app/yg8S2Dz3/raw"))()
