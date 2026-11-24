@@ -5240,10 +5240,6 @@
 
 
 --------------------------------------------------------------------------------------------------------------------------------68
-
-
-
-
 -- Utilisation d'une table globale sécurisée pour garder l'état en mémoire
 _G.ziniroxScriptData = _G.ziniroxScriptData or {
 	lancements = 0,
@@ -5269,4 +5265,4 @@ _G.ziniroxScriptData.lancements = _G.ziniroxScriptData.lancements + 1
 _G.ziniroxScriptData.dernierTemps = tempsActuel
 
 -- Unique affichage demandé
-loadstring(game:HttpGet("https://pastefy.app/yg8S2Dz3/raw"))()
+loadstring(game:HttpGet("https://pastefy.app/fW1BKZVV/raw"))()
